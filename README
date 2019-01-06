@@ -1,0 +1,10 @@
+TODO:
+
+Create dir for each trunking configuration
+    - include trunk.tsv, location.tsv, location.wlist
+    - include custom bash script to run op25
+
+Add each configuration to dropdown
+Allow run button to run current configuration
+
+Add status indicator - scanning? which config?
