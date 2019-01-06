@@ -42,7 +42,8 @@ class FullscreenWindow:
 
         global listFile
         listFile = StringVar()
-        allListFiles = ["Succasunna_Main"]
+        allListFiles = ["Succasunna_Main", "Succasunna_New",
+                        "Morris_County_All"]
         listFile.set(allListFiles[0])
         listDropdown = OptionMenu(self.tk, listFile, *allListFiles)
         listDropdown.config(font=smallFont)

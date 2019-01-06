@@ -1,0 +1,2 @@
+"Sysname"	"Control Channel List"	"Offset"	"NAC"	"Modulation"	"TGID Tags File"	"Whitelist"	"Blacklist"	"Center Frequency"
+"MorrisCty"	478.000000		"0x4b0"	"CQPSK"	"/home/pi/pi-scanner/morris.tsv"	"/home/pi/pi-scanner/succasunna.wlist"		
