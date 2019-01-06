@@ -28,20 +28,21 @@ class FullscreenWindow:
         self.tk.title("Fullscreen Test application")
 
         largeFont = tkFont.Font(family='Helvetica', size=30, weight='bold')
-        smallFont = tkFont.Font(family='Helvetica', size=10, weight='bold')
+        smallFont = tkFont.Font(family='Helvetica', size=20, weight='bold')
 
         mainLabelText = StringVar()
         mainLabelText.set("Project 25 Radio Scanner")
         mainLabel = Message(self.tk, textvariable=mainLabelText, font=largeFont, width=500)
         
         self.statusLabelText = StringVar()
-        self.statusLabelText.set("System idle")
+        self.statusLabelText.set("Status: idle")
         statusLabel = Message(self.tk, textvariable=self.statusLabelText, font=largeFont, width=500)
 
         mainButton = Button(self.tk, text="Scan/Stop", command=self.scanCurrentList, font=largeFont)
 
+        global listFile
         listFile = StringVar()
-        allListFiles = ["Morris Cty Main"]
+        allListFiles = ["Succasunna_Main"]
         listFile.set(allListFiles[0])
         listDropdown = OptionMenu(self.tk, listFile, *allListFiles)
         listDropdown.config(font=smallFont)
@@ -67,18 +68,26 @@ class FullscreenWindow:
         return "break"
 
     def scanCurrentList(self, event=None):
-        # run op25 script with trunk.tsv selected based on listFile
-        global scan
+        # run op25 with trunk.tsv selected based on listFile
         if self.scanning:
             self.scanning = False
-            self.statusLabelText.set("System idle")
-            os.killpg(os.getpgid(self.scan.pid), signal.SIGTERM)
+            self.statusLabelText.set("Status: idle")
+            os.killpg(os.getpgid(scan.pid), signal.SIGTERM)
         else:
             self.scanning = True
-            self.statusLabelText.set("Running")
-            self.scan = subprocess.Popen("/home/pi/runScanner.sh", shell=True, 
-                                    stdout=subprocess.PIPE, preexec_fn=os.setsid)
+            self.statusLabelText.set("Status: running")
+            runOp25(listFile.get())
+
+
+def runOp25(trunkFile):
+    global scan
+    fileName = "/home/pi/pi-scanner/"+trunkFile+".sh"
+    scan = subprocess.Popen(fileName, shell=True, stdout=subprocess.PIPE,
+                            preexec_fn=os.setsid)
 
 if __name__ == '__main__':
     w = FullscreenWindow()
     w.tk.mainloop()
+
+    # kill OP25 before exiting
+    os.killpg(os.getpgid(scan.pid), signal.SIGTERM)
