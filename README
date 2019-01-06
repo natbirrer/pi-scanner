@@ -4,7 +4,11 @@ Create dir for each trunking configuration
     - include trunk.tsv, location.tsv, location.wlist
     - include custom bash script to run op25
 
-Add each configuration to dropdown
-Allow run button to run current configuration
+Create some test configurations - partially done
 
-Add status indicator - scanning? which config?
+Clean up GUI
+Add volume controls
+
+Change button functions to augment GUI
+
+Pipe talkgroup ID from OP25 to GUI
