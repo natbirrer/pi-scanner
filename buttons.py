@@ -5,6 +5,7 @@ import time
 import RPi.GPIO as GPIO
 import os
 import signal
+import sys
 
 channel_list = [17, 22, 23, 27]
 backlightOn = True
@@ -56,23 +57,32 @@ def poweroff(channel):
         backlightOn = True
         backlight.start(100)
 
+def graceful_exit(signum, frame):
+    print "Got an exit signal"
+    backlight.stop()
+    GPIO.cleanup()
+    sys.exit()
+
+# Catch termination signals
+signal.signal(signal.SIGINT, graceful_exit)
+signal.signal(signal.SIGTERM, graceful_exit)
+
+# Setup
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(channel_list, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 GPIO.setup(18, GPIO.OUT)
 backlight = GPIO.PWM(18, 1000)
 backlight.start(100)
 
+# TODO Maybe make buttons 17 and 22 hardware volume control
 #GPIO.add_event_detect(17, GPIO.FALLING, callback=toggleBacklight, bouncetime=200)
 GPIO.add_event_detect(22, GPIO.FALLING, callback=toggleBacklight, bouncetime=200)
 GPIO.add_event_detect(23, GPIO.FALLING, callback=runMorrisMain, bouncetime=200)
 GPIO.add_event_detect(27, GPIO.FALLING, callback=poweroff, bouncetime=200)
 
-try:
-    GPIO.wait_for_edge(17, GPIO.FALLING)
-    print "Exit button pressed"
+while True:
+    time.sleep(0.02) # sleep prevents high CPU use
 
-except:
-    pass
-
+# Execution should never reach this point
 backlight.stop()
 GPIO.cleanup()
