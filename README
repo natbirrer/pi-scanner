@@ -1,14 +1,25 @@
+This is a python tool for running OP25 trunked radio scanner on a headless
+Raspberry Pi with a small touchscreen and RTL SDR dongle.
+
 TODO:
 
 Create dir for each trunking configuration
     - include trunk.tsv, location.tsv, location.wlist
     - include custom bash script to run op25
 
-Create some test configurations - partially done
+Create some test configurations
+ - partially done
 
 Clean up GUI
+
 Add volume controls
+ - added hard button volume control but volume steps are in log scale, 
+   which is not ideal... low priority fix
 
 Change button functions to augment GUI
+ - currently poweroff, screen backlight on/off, volume up/down, run main scan
+ - more functionality can be crammed into buttons, prioritize
 
 Pipe talkgroup ID from OP25 to GUI
+ - this could be difficult, consider creating new version of rx.py
+   instead of calling it from another script
