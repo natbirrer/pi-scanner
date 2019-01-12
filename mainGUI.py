@@ -1,3 +1,5 @@
+#!/usr/bin/env python2.7
+
 # This application is a GUI interface for op25 designed for Raspberry Pi
 # with Adafruit PiTFT 2.8 inch touchscreen
 # Python 2.7
@@ -13,7 +15,7 @@ from Tkinter import *
 import tkFont
 
 
-class FullscreenWindow:
+class ScannerApp:
 
     def __init__(self):
         self.tk = Tk()
@@ -69,6 +71,13 @@ class FullscreenWindow:
         return "break"
 
     def scanCurrentList(self, event=None):
+        # Check that RTL chip is connected
+        try:
+            subprocess.check_output(['lsusb | grep RTL'], shell=True)
+        except:
+            self.statusLabelText.set("Error-no RTL chip")
+            return
+
         # run op25 with trunk.tsv selected based on listFile
         if self.scanning:
             self.scanning = False
@@ -87,8 +96,9 @@ def runOp25(trunkFile):
                             preexec_fn=os.setsid)
 
 if __name__ == '__main__':
-    w = FullscreenWindow()
+    w = ScannerApp()
     w.tk.mainloop()
 
     # kill OP25 before exiting
-    os.killpg(os.getpgid(scan.pid), signal.SIGTERM)
+    if w.scanning:
+        os.killpg(os.getpgid(scan.pid), signal.SIGTERM)
