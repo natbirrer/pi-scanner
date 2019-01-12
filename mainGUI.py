@@ -53,7 +53,7 @@ class ScannerApp:
         listDropdownMenu.config(font=smallFont)
 
         self.tk.rowconfigure((0,2), weight=1)
-        self.tk.columnconfigure((0,2), weight=1)
+        self.tk.columnconfigure((0,1), weight=1)
         mainLabel.grid(row=0, column=0, columnspan=2, sticky='EWNS')
         statusLabel.grid(row=1, column=0, columnspan=2, sticky='EWNS')
         listDropdown.grid(row=2, column=0, columnspan=1, sticky='EWNS')
