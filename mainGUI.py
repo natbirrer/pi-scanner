@@ -45,7 +45,7 @@ class ScannerApp:
         global listFile
         listFile = StringVar()
         allListFiles = ["Succasunna_Main", "Succasunna_New",
-                        "Morris_County_All"]
+                        "Morris_County_All", "Picatinny"]
         listFile.set(allListFiles[0])
         listDropdown = OptionMenu(self.tk, listFile, *allListFiles)
         listDropdown.config(font=smallFont)
