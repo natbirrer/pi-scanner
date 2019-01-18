@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=ScannerGUI
+Exec=/home/pi/pi-scanner/runMainGUI.sh
