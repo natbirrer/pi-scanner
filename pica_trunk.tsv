@@ -1,0 +1,2 @@
+"Sysname"	"Control Channel List"	"Offset"	"NAC"	"Modulation"	"TGID Tags File"	"Whitelist"	"Blacklist"	"Center Frequency"
+"PicatinnyArsenal"	380.175000		"0x4b0"	"CQPSK"	"/home/pi/pi-scanner/pica.tsv"	"/home/pi/pi-scanner/pica.wlist"		
